@@ -1,0 +1,62 @@
+Welcome to vtk_menu!
+This is a simple bit of code which allow you to create very basic menues for console applications like this:
+
+Your options are:
+0) This is an option
+1) This is another option
+2) Is this even an option?
+Choose an option or press 'q' to exit!
+
+This is pretty simple, and simple to use in your code.
+I use the vtk:: namespace for all my stuff.
+
+Here is how you create a basic menu:
+
+vtk::menu myMenu("Opt0#Opt1", "My Title", "My Message to the user");
+myMenu.open();
+
+this will produce this in the console:
+
+My Title:
+0) Opt0
+1) Opt1
+My Message to the user
+
+and the menu.open() method will return the chosen number as an int as its output, and will return -1 if the user quit the menu using the 'q' option.
+The menu will rerun, if the user choose and invalid input, not a number or an out of range number.
+So you specify the options in a string separated by '#' characters, so that is a reserved character for that, you cant have it in the option names,
+without creating custom menu options.
+This is a persistent menu, you can open it multiple time with the open() method.
+You can also create a one time use menu, here is the same menu that way:
+
+vtk::inlineMenu myMenu("Opt0#Opt1", "My Title", "My Message to the user");
+
+this will produce the same menu, and inlineMenu return the chosen option as its output too.
+
+If you put "" as the title or the message it will use a default fallback value.
+
+you can edit the fallback values with:
+
+void vtk::setDefaultMenuMsg(std::string msg)
+void vtk::setDefaultMenuTitle(std::string title)
+void vtk::setDefaultItemName(std::string name)
+void vtk::setDefaultItemFunction(void(*function)())
+
+
+
+This is the end of the quickstart guide, if you want to create a few more in depth things or understand how this works continue, else you dont have to.
+
+
+A few more "advanced" features:
+Each menu object has an std::vector<menuItem> in it, so you can menually edit the menu items of a menu, or add new items.
+The menuItem-s themselves have 2 fields, an std::string as their name, and a void(*)() which gets run when the option is chosen, you can edit this too!
+The menu items have a few different constructors, if you want just check them in the .h file.
+
+The fallback default function just prints a message to the console if VTK_DEBUG is defined, else it does nothing.
+So you can also put a menu together manually, by doing something like this:
+
+vtk::menu MyMenu;
+vtK::menuItem item;
+item.name = "Custom Name";
+item.run = foo;
+MyMenu.items.push_back(item);
