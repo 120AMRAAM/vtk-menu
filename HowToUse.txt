@@ -1,4 +1,6 @@
+Hello!
 Welcome to vtk_menu!
+
 This is a simple bit of code which allow you to create very basic menues for console applications like this:
 
 Your options are:
